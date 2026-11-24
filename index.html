@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Antigravity 破冰成功！</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(135deg, #fce4ec 0%, #e8eaf6 50%, #e0f2fe 100%);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang TC", "Microsoft JhengHei", sans-serif;
+      color: #374151;
+      padding: 20px;
+    }
+
+    .card {
+      position: relative;
+      background: linear-gradient(145deg, rgba(255, 255, 255, 0.9), rgba(248, 250, 252, 0.8));
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.7);
+      border-radius: 28px;
+      padding: 48px 40px;
+      max-width: 480px;
+      width: 100%;
+      text-align: center;
+      box-shadow:
+        0 20px 40px -15px rgba(147, 112, 219, 0.2),
+        0 0 0 1px rgba(255, 255, 255, 0.6) inset;
+      transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+    }
+
+    .tag {
+      display: inline-block;
+      padding: 6px 16px;
+      background: linear-gradient(135deg, #fbcfe8, #f472b6);
+      color: #831843;
+      font-size: 13px;
+      font-weight: 600;
+      border-radius: 9999px;
+      letter-spacing: 1px;
+      margin-bottom: 20px;
+      box-shadow: 0 4px 12px rgba(244, 114, 182, 0.2);
+    }
+
+    h1 {
+      font-size: 28px;
+      font-weight: 800;
+      background: linear-gradient(135deg, #6366f1 0%, #a855f7 50%, #ec4899 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 12px;
+      letter-spacing: -0.5px;
+    }
+
+    .subtitle {
+      font-size: 15px;
+      color: #6b7280;
+      margin-bottom: 36px;
+      line-height: 1.6;
+    }
+
+    .glow-btn {
+      position: relative;
+      background: linear-gradient(135deg, #818cf8, #c084fc, #f472b6);
+      color: #ffffff;
+      border: none;
+      padding: 16px 36px;
+      font-size: 17px;
+      font-weight: 600;
+      border-radius: 9999px;
+      cursor: pointer;
+      outline: none;
+      box-shadow:
+        0 0 20px rgba(192, 132, 252, 0.45),
+        0 8px 24px -4px rgba(129, 140, 248, 0.4);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      overflow: hidden;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .glow-btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.4),
+        transparent
+      );
+      transition: 0.5s;
+    }
+
+    .glow-btn:hover {
+      transform: translateY(-2px) scale(1.03);
+      box-shadow:
+        0 0 30px rgba(192, 132, 252, 0.7),
+        0 12px 30px -4px rgba(244, 114, 182, 0.5);
+    }
+
+    .glow-btn:hover::before {
+      left: 100%;
+    }
+
+    .glow-btn:active {
+      transform: translateY(1px) scale(0.98);
+      box-shadow:
+        0 0 15px rgba(192, 132, 252, 0.5),
+        0 4px 15px rgba(129, 140, 248, 0.3);
+    }
+
+    .result-container {
+      margin-top: 32px;
+      min-height: 80px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .counter-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 14px;
+      color: #7c3aed;
+      background: #f3e8ff;
+      padding: 6px 16px;
+      border-radius: 20px;
+      font-weight: 600;
+      margin-bottom: 12px;
+      opacity: 0;
+      transform: translateY(8px);
+      transition: all 0.3s ease;
+    }
+
+    .counter-badge.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .quote-box {
+      font-size: 15px;
+      color: #4b5563;
+      font-weight: 500;
+      line-height: 1.6;
+      opacity: 0;
+      transform: translateY(10px);
+      transition: all 0.4s ease;
+      min-height: 24px;
+    }
+
+    .quote-box.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="tag">WELCOME ABOARD</div>
+    <h1>Antigravity 破冰成功！</h1>
+    <p class="subtitle">點擊下方的發光按鈕，領取專屬於你的今日能量靈感 ✨</p>
+
+    <button id="glowBtn" class="glow-btn">
+      <span>點我探索</span>
+      <span>🚀</span>
+    </button>
+
+    <div class="result-container">
+      <div id="counterBadge" class="counter-badge">
+        <span>累積點擊：</span><span id="clickCount">0</span><span> 次</span>
+      </div>
+      <div id="quoteBox" class="quote-box"></div>
+    </div>
+  </div>
+
+  <script>
+    const quotes = [
+      "每一行代碼，都是通往未來的橋樑！",
+      "今天也是充滿無限可能與靈感的一天 ✨",
+      "小步快跑，偉大的作品由此誕生！",
+      "相信自己，你寫出的代碼正在改變世界 💡",
+      "程式如詩，保持好奇心與創造力！",
+      "深呼吸，享受解出難題的極致快感 🌟",
+      "宇宙廣大，而你在這裡創造了屬於自己的星系 🚀",
+      "錯誤只是成功的引路標，繼續前行吧！"
+    ];
+
+    let count = 0;
+    const btn = document.getElementById('glowBtn');
+    const countBadge = document.getElementById('counterBadge');
+    const countEl = document.getElementById('clickCount');
+    const quoteEl = document.getElementById('quoteBox');
+
+    btn.addEventListener('click', () => {
+      count++;
+      countEl.textContent = count;
+
+      // 隨機選取鼓勵小語
+      const randomIndex = Math.floor(Math.random() * quotes.length);
+      const selectedQuote = quotes[randomIndex];
+
+      // 更新內容與淡入動畫
+      quoteEl.classList.remove('show');
+      countBadge.classList.add('show');
+
+      setTimeout(() => {
+        quoteEl.textContent = `「${selectedQuote}」`;
+        quoteEl.classList.add('show');
+      }, 100);
+    });
+  </script>
+</body>
+</html>
